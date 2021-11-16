@@ -50,34 +50,15 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/task/create", name="task_create")
-     */
-    public function createTask(Request $request)
-    {
-        $task = new Task;
-        $task->setCreatedAt(new \DateTime());
-        $form = $this->createForm(TaskType::class, $task, []);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $this->manager->persist($task);
-            $this->manager->flush();
-
-            return $this->redirectToRoute('task_listing');
-        }
-
-        return $this->render('task/create.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
      * @Route("/task/update/{id}", name="task_update", requirements={"id"="\d+"})
      */
-    public function updateTask($id, Request $request)
+    public function Task(Task $task = null, Request $request)
     {
 
-        $task = $this->repository->find($id);
+        if (!$task) {
+            $task = new Task;
+            $task->setCreatedAt(new \DateTime());
+        }
 
         $form = $this->createForm(TaskType::class, $task, []);
         $form->handleRequest($request);
