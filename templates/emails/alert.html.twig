@@ -3,35 +3,33 @@
 <html>
 	<h1>ATTENTION!!</h1>
 
-	<h1>Votre tâche
-		{{task.name}}
-		arrive à échéance le
-		{{task.dueAt}}
-	</h1>
+	<h1>Votre tâche LOL arrive à échéance le AUJOURD'HUI</h1>
 
 
 	<div class="container">
 		<table class="table table-striped tabled-bordered" id="tasksTable">
 			<caption>Le résumé de votre tâche</caption>
 			<thead>
-				<th>Nom</th>
-				<th>Description</th>
-				<th>Date effective</th>
-				<th>Catégorie</th>
+				<tr>
+					<th>Nom</th>
+					<th>Description</th>
+					<th>Date effective</th>
+					<th>Catégorie</th>
+				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td>{{ task.name }}</td>
-					<td>{{ task.description }}</td>
-					<td>{{ task.dueAt | date('d/m/y H:i:s') }}</td>
-					<td>{{ task.tag.name }}</td>
+					<td>LOL</td>
+					<td>Ceci est un LOL</td>
+					<td>Aujourd'hui</td>
+					<td>Catégorie</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<p>
+	{# <p>
 		<code>{{email.to[0].address}}
 		</code>
-	</p>
+	</p> #}
 	<p>Votre AppToDo adorée</p>
 </html>
