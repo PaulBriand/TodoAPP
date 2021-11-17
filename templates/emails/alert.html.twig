@@ -1,35 +1,33 @@
 {# templates/emails/alert.html.twig #}
 <!DOCTYPE html>
 <html>
-	<h1>ATTENTION!!</h1>
-
-	<h1>Votre tâche LOL arrive à échéance le AUJOURD'HUI</h1>
-
-
-	<div class="container">
-		<table class="table table-striped tabled-bordered" id="tasksTable">
-			<caption>Le résumé de votre tâche</caption>
-			<thead>
-				<tr>
-					<th>Nom</th>
-					<th>Description</th>
-					<th>Date effective</th>
-					<th>Catégorie</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>LOL</td>
-					<td>Ceci est un LOL</td>
-					<td>Aujourd'hui</td>
-					<td>Catégorie</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	{# <p>
-		<code>{{email.to[0].address}}
-		</code>
-	</p> #}
-	<p>Votre AppToDo adorée</p>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body style="text-align : center;">
+		<h1>ATTENTION!!</h1>
+		<h1>Votre tâche LOL arrive à échéance le AUJOURD'HUI</h1>
+		<div class="container">
+			<table class="table table-striped tabled-bordered" id="tasksTable">
+				<caption>Le résumé de votre tâche</caption>
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th>Description</th>
+						<th>Date effective</th>
+						<th>Catégorie</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>LOL</td>
+						<td>Ceci est un LOL</td>
+						<td>Aujourd'hui</td>
+						<td>Catégorie</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<p>Votre AppToDo adorée</p>
+	</body>
 </html>
