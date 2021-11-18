@@ -39,7 +39,7 @@ class MailerService
                 ->from($mail)
                 ->to($mail)
                 ->subject($subject)
-                ->html($this->twig->render($template, $params), 'utf-8');
+                ->html($this->twig->render($template, $params), 'UTF-8');
             $this->mailer->send($email);
         } catch (TransportException $e) {
         }
