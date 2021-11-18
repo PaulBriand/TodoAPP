@@ -42,6 +42,8 @@ class TaskController extends AbstractController
     {
 
         $user = $this->getUser();
+        $username = explode('@', $user->getEmail())[0];
+        $task = new Task;
         // dd($user);
 
         $tasks = $this->repository->findAll();
@@ -58,13 +60,14 @@ class TaskController extends AbstractController
                 // pass variables (name => value) to the template
                 ->context([
                     'expiration_date' => new \DateTime('+7 days'),
-                    'username' => 'foo',
+                    'username' => $username,
+                    'task' => 'Tâche',
                 ]);
 
             $mailer->send($email);
         } catch (TransportException $e) {
             print $e->getMessage() . "\n";
-            throw $e;
+            // echo ($e);
         }
 
         // var_dump($tasks);
