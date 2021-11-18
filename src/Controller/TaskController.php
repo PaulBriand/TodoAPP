@@ -9,6 +9,7 @@ use App\Form\TaskType;
 use App\Services\MailerService;
 use Symfony\Component\Mime\Email;
 use App\Repository\TaskRepository;
+use DateInterval;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,20 +48,22 @@ class TaskController extends AbstractController
         $task = new Task;
         // dd($user);
 
+        $now = new DateTime();
+
         $tasks = $this->repository->findAll();
 
         foreach ($tasks as $task) {
-            if ($task->getDueAt() - 2 == new DateTime()) {
+
+            $diffDate = $now->diff($task->getDueAt());
+
+            if ($diffDate <= 2) {
 
                 $parameters = [
-                    'username' => $user->getEmail(),
-                    'task' => $task->getName(),
-                    'dueAt' => $task->getDueAt(),
-                    'description' => $task->getDescription(),
-                    'category' => $task->getTag()
+                    'username' => $username,
+                    'task' => $task
                 ];
 
-                $mailer->sendEmail("Attention ! Votre tache arrive à échéance !", $user->getEmail(), 'templates\emails\alert.html.twig', $parameters);
+                $mailer->sendEmail("Attention ! Votre tache arrive à échéance !", $user->getEmail(), 'emails\alert.html.twig', $parameters);
             }
         }
 

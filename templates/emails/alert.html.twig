@@ -9,9 +9,9 @@
 		<h1>ATTENTION!!
 			{{username}}</h1>
 		<h1>Votre tâche
-			{{task}}
+			{{task.name}}
 			arrive à échéance le
-			{{dueAt}}</h1>
+			{{task.dueAt|date("d/m/y")}}</h1>
 		<div class="container">
 			<table class="table table-striped tabled-bordered" id="tasksTable">
 				<caption>Le résumé de votre tâche</caption>
@@ -25,10 +25,10 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{task}}</td>
-						<td>{{descritpion}}</td>
-						<td>{{dueAt}}</td>
-						<td>{{category}}</td>
+						<td>{{task.name}}</td>
+						<td>{{task.description}}</td>
+						<td>{{task.dueAt|date("d/m/y")}}</td>
+						<td>{{task.tag.name}}</td>
 					</tr>
 				</tbody>
 			</table>
