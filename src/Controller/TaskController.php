@@ -51,19 +51,31 @@ class TaskController extends AbstractController
         $now = new DateTime();
 
         $tasks = $this->repository->findAll();
+        $msg = '';
 
         foreach ($tasks as $task) {
 
             $diffDate = $now->diff($task->getDueAt());
 
-            if ($diffDate->days <= 2) {
+            if ($diffDate->days <= 2 && ($now < $task->getDueAt())) {
 
+                $msg = ' arrive à échéance le ';
                 $parameters = [
                     'username' => $username,
-                    'task' => $task
+                    'task' => $task,
+                    'msg' => $msg
                 ];
 
                 $mailer->sendEmail("Attention ! Votre tache arrive à échéance !", $user->getEmail(), 'emails\alert.html.twig', $parameters);
+            } else if ($now > $task->getDueAt()) {
+                $msg = " a dépassé la date d'échéance le ";
+                $parameters = [
+                    'username' => $username,
+                    'task' => $task,
+                    'msg' => $msg
+                ];
+
+                $mailer->sendEmail("Attention ! Votre tache est arrivée à échéance !", $user->getEmail(), 'emails\alert.html.twig', $parameters);
             }
         }
 
