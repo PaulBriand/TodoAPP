@@ -56,7 +56,7 @@ class TaskController extends AbstractController
 
             $diffDate = $now->diff($task->getDueAt());
 
-            if ($diffDate <= 2) {
+            if ($diffDate->days <= 2) {
 
                 $parameters = [
                     'username' => $username,
