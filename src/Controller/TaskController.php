@@ -43,10 +43,13 @@ class TaskController extends AbstractController
     {
 
         $user = $this->getUser();
+        $username = explode('@', $user->getEmail())[0];
+        $task = new Task;
         // dd($user);
 
         $tasks = $this->repository->findAll();
 
+<<<<<<< HEAD
         foreach ($tasks as $task) {
             if ($task->getDueAt() - 2 == new DateTime()) {
 
@@ -60,6 +63,28 @@ class TaskController extends AbstractController
 
                 $mailer->sendEmail("Attention ! Votre tache arrive à échéance !", $user->getEmail(), 'templates\emails\alert.html.twig', $parameters);
             }
+=======
+        try {
+            $email = (new TemplatedEmail())
+                ->from("briand.paul@outlook.fr")
+                ->to("briand.paul@outlook.fr")
+                ->subject("Toto")
+
+                // path of the Twig template to render
+                ->htmlTemplate('emails/alert.html.twig')
+
+                // pass variables (name => value) to the template
+                ->context([
+                    'expiration_date' => new \DateTime('+7 days'),
+                    'username' => $username,
+                    'task' => 'Tâche',
+                ]);
+
+            $mailer->send($email);
+        } catch (TransportException $e) {
+            print $e->getMessage() . "\n";
+            // echo ($e);
+>>>>>>> 2683441f6fb304f922037fa3e765f835b181dec4
         }
 
         // var_dump($tasks);    
