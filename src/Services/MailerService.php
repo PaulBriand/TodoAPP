@@ -5,6 +5,7 @@ namespace App\Services;
 use Twig\Environment;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Exception\TransportException;
 
 class MailerService
 {
@@ -33,13 +34,15 @@ class MailerService
 
     public function sendEmail(string $subject, string $mail, string $template, array $params): void
     {
-        $email = new Email();
+        try {
+            $email = (new Email())
+                ->from($mail)
+                ->to($mail)
+                ->subject($subject)
+                ->html($this->twig->render($template, $params));
 
-        $email->from($mail)
-            ->to($mail)
-            ->subject($subject)
-            ->html($this->twig->render($template, $params));
-
-        $this->mailer->send($email);
+            $this->mailer->send($email);
+        } catch (TransportException $e) {
+        }
     }
 }

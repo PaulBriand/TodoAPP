@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Task;
 use App\Entity\User;
 use App\Form\TaskType;
@@ -38,7 +39,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/task/listing", name="task_listing")
      */
-    public function index(MailerInterface $mailer): Response
+    public function index(MailerService $mailer): Response
     {
 
         $user = $this->getUser();
@@ -46,46 +47,28 @@ class TaskController extends AbstractController
 
         $tasks = $this->repository->findAll();
 
-        try {
-            $email = (new TemplatedEmail())
-                ->from("briand.paul@outlook.fr")
-                ->to("briand.paul@outlook.fr")
-                ->subject("Toto")
+        foreach ($tasks as $task) {
+            if ($task->getDueAt() - 2 == new DateTime()) {
 
-                // path of the Twig template to render
-                ->htmlTemplate('emails/alert.html.twig')
+                $parameters = [
+                    'username' => $user->getEmail(),
+                    'task' => $task->getName(),
+                    'dueAt' => $task->getDueAt(),
+                    'description' => $task->getDescription(),
+                    'category' => $task->getTag()
+                ];
 
-                // pass variables (name => value) to the template
-                ->context([
-                    'expiration_date' => new \DateTime('+7 days'),
-                    'username' => 'foo',
-                ]);
-
-            $mailer->send($email);
-        } catch (TransportException $e) {
-            print $e->getMessage() . "\n";
-            throw $e;
+                $mailer->sendEmail("Attention ! Votre tache arrive à échéance !", $user->getEmail(), 'templates\emails\alert.html.twig', $parameters);
+            }
         }
 
-        // var_dump($tasks);
+        // var_dump($tasks);    
         // die;
         //dd($tasks);
 
         return $this->render('task/index.html.twig', [
             'tasks' => $tasks,
         ]);
-    }
-
-    public function sendEmail(string $subject, string $mail, string $template, array $params): void
-    {
-        $email = new Email();
-
-        $email->from($mail)
-            ->to($mail)
-            ->subject($subject)
-            ->html($this->twig->render($template, $params));
-
-        $this->mailer->send($email);
     }
 
     /**
