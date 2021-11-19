@@ -42,7 +42,7 @@ class TaskController extends AbstractController
      */
     public function index(MailerService $mailer): Response
     {
-
+        /*
         // On intitialise la fonction
         $user = $this->getUser(); //On récupère le User 
 
@@ -52,9 +52,10 @@ class TaskController extends AbstractController
         // On instantie la date d'aujourd'hui
         $now = new DateTime();
 
+    */
         // On récupère les tâches
         $tasks = $this->repository->findAll();
-
+        /*
         // On initialise le msg 
         $msg = '';
 
@@ -75,7 +76,7 @@ class TaskController extends AbstractController
             * et que la date d'aujourd'hui et antérieur à la date d'échéance
             * on écrit un message avertissant l'utilisateur que la date arrive bientôt
             */
-            if ($diffDate->days <= 2 && ($now < $task->getDueAt())) {
+        /*           if ($diffDate->days <= 2 && ($now < $task->getDueAt())) {
 
 
                 $msg = ' arrive à échéance le '; // Le bout de message d'avertissement
@@ -105,7 +106,7 @@ class TaskController extends AbstractController
             }
         }
 
-
+*/
         return $this->render('task/index.html.twig', [
             'tasks' => $tasks,
         ]);

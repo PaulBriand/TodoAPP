@@ -4,7 +4,13 @@ namespace App\Security;
 
 use DateTime;
 use App\Entity\User;
+use Twig\Environment;
+use App\Services\MailerService;
+use Twig\Loader\LoaderInterface;
+use App\Repository\TaskRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -26,9 +32,24 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    private MailerService $mailer;
+
+    /**
+     * @var TaskRepository
+     */
+    private $repository;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $manager;
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, TaskRepository $repository, EntityManagerInterface $manager, MailerService $mailer)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->repository = $repository;
+        $this->manager = $manager;
+        $this->mailer = $mailer;
     }
 
     public function authenticate(Request $request): PassportInterface
@@ -48,12 +69,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        //On intitialise la fonction
+        $user = $request->request->get('email', ''); //On récupère le User 
 
-        // On intitialise la fonction
-        $user = $this->getUser(); //On récupère le User 
-
-        // On récupère le nom d'utilisateur à partir de son adresse e-mail
-        $username = explode('@', $user->getEmail())[0];
+        //On récupère le nom d'utilisateur à partir de son adresse e-mail
+        $username = explode('@', $user)[0];
 
         // On instantie la date d'aujourd'hui
         $now = new DateTime();
@@ -78,18 +98,19 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             ];
 
             /* Si la durée est inférieur ou égale 2 jours et que la date d'aujourd'hui
-      * et que la date d'aujourd'hui et antérieur à la date d'échéance
-      * on écrit un message avertissant l'utilisateur que la date arrive bientôt
-      */
+          * et que la date d'aujourd'hui et antérieur à la date d'échéance
+          * on écrit un message avertissant l'utilisateur que la date arrive bientôt
+          */
+
             if ($diffDate->days <= 2 && ($now < $task->getDueAt())) {
 
 
                 $msg = ' arrive à échéance le '; // Le bout de message d'avertissement
 
                 // On envoie l'e-mail
-                $mailer->sendEmail(
+                $this->mailer->sendEmail(
                     "Attention ! Votre tache arrive à échéance !",
-                    $user->getEmail(),
+                    $user,
                     'emails\alert.html.twig',
                     $parameters
                 );
@@ -102,9 +123,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
                 $msg = " a dépassé la date d'échéance le ";
 
                 // On envoie le e-mail
-                $mailer->sendEmail(
+                $this->mailer->sendEmail(
                     "Attention ! Votre tache est arrivée à échéance !",
-                    $user->getEmail(),
+                    $user,
                     'emails\alert.html.twig',
                     $parameters
                 );
