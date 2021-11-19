@@ -83,22 +83,25 @@ class TaskController extends AbstractController
                 // On envoie l'e-mail
                 $mailer->sendEmail(
                     "Attention ! Votre tache arrive à échéance !",
-                     $user->getEmail(),
-                      'emails\alert.html.twig',
-                       $parameters);
+                    $user->getEmail(),
+                    'emails\alert.html.twig',
+                    $parameters
+                );
 
                 // Si la durée est inférieur ou égale 2 jours et que la date d'aujourd'hui
                 // et que la date d'aujourd'hui et antérieur à la date d'échéance
                 // on écrit un message avertissant l'utilisateur que la date est passée
             } else if ($now > $task->getDueAt()) {
                 //Le bout de message qui informe le dépassement de l'échéance
-                $msg = " a dépassé la date d'échéance le "; 
+                $msg = " a dépassé la date d'échéance le ";
 
                 // On envoie le e-mail
-                $mailer->sendEmail("Attention ! Votre tache est arrivée à échéance !",
-                 $user->getEmail(),
-                  'emails\alert.html.twig',
-                   $parameters);
+                $mailer->sendEmail(
+                    "Attention ! Votre tache est arrivée à échéance !",
+                    $user->getEmail(),
+                    'emails\alert.html.twig',
+                    $parameters
+                );
             }
         }
 

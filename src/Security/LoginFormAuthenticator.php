@@ -2,19 +2,21 @@
 
 namespace App\Security;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use DateTime;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
-use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
+use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -46,6 +48,69 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+
+        // On intitialise la fonction
+        $user = $this->getUser(); //On récupère le User 
+
+        // On récupère le nom d'utilisateur à partir de son adresse e-mail
+        $username = explode('@', $user->getEmail())[0];
+
+        // On instantie la date d'aujourd'hui
+        $now = new DateTime();
+
+        // On récupère les tâches
+        $tasks = $this->repository->findAll();
+
+        // On initialise le msg 
+        $msg = '';
+
+        // On boucle sur la liste des tâches
+        foreach ($tasks as $task) {
+            // On calcule la durée qui sépare la Date d'aujourd'hui avec la date 
+            //d'échéance de la tâche.
+            $diffDate = $now->diff($task->getDueAt());
+
+            // On ajoute les paramètres que l'on souhaite afficher dans le message
+            $parameters = [
+                'username' => $username,
+                'task' => $task,
+                'msg' => $msg
+            ];
+
+            /* Si la durée est inférieur ou égale 2 jours et que la date d'aujourd'hui
+      * et que la date d'aujourd'hui et antérieur à la date d'échéance
+      * on écrit un message avertissant l'utilisateur que la date arrive bientôt
+      */
+            if ($diffDate->days <= 2 && ($now < $task->getDueAt())) {
+
+
+                $msg = ' arrive à échéance le '; // Le bout de message d'avertissement
+
+                // On envoie l'e-mail
+                $mailer->sendEmail(
+                    "Attention ! Votre tache arrive à échéance !",
+                    $user->getEmail(),
+                    'emails\alert.html.twig',
+                    $parameters
+                );
+
+                // Si la durée est inférieur ou égale 2 jours et que la date d'aujourd'hui
+                // et que la date d'aujourd'hui et antérieur à la date d'échéance
+                // on écrit un message avertissant l'utilisateur que la date est passée
+            } else if ($now > $task->getDueAt()) {
+                //Le bout de message qui informe le dépassement de l'échéance
+                $msg = " a dépassé la date d'échéance le ";
+
+                // On envoie le e-mail
+                $mailer->sendEmail(
+                    "Attention ! Votre tache est arrivée à échéance !",
+                    $user->getEmail(),
+                    'emails\alert.html.twig',
+                    $parameters
+                );
+            }
+        }
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
