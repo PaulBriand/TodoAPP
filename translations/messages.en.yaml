@@ -1,0 +1,17 @@
+general:
+  name: Name
+  description: Description
+  due_date: Due Date
+  category: Tag
+  button:
+    success: Confirm
+    cancel: Cancel
+    update: Update
+    delete: Delete
+    add: Add
+datables:
+  sLengthMenu: Show de _MENU_ entrés per page
+  sSearch: Search
+  sInfo: Show de _START_ à _END_ of _TOTAL_ recordsf
+  prvious: Previous
+  next: Next
