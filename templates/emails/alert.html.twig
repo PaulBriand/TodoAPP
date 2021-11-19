@@ -1,20 +1,18 @@
 {# templates/emails/alert.html.twig #}
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
 	</head>
 	<body style="text-align : center;">
-		<h1>ATTENTION!!
-			{{username}}</h1>
-		<h1>Votre tâche
-			{{task.name}}
-			{{msg}}
+		<h1>ATTENTION !
+			{{username|raw}}</h1>
+		<h1>Votre tâche "{{task.name|raw}}"
+			{{msg|raw}}
 			{{task.dueAt|date("d/m/y")}}</h1>
-		<div class="container">
-			<table class="table table-striped tabled-bordered" id="tasksTable">
-				<caption>Le résumé de votre tâche</caption>
+		<div class="container" style="text-align :center; margin: auto;">
+			<h2>Le résumé de votre tâche</h2>
+			<table>
 				<thead>
 					<tr>
 						<th>Nom</th>
@@ -25,14 +23,14 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{task.name}}</td>
-						<td>{{task.description}}</td>
+						<td>{{task.name|raw}}</td>
+						<td>{{task.description|raw}}</td>
 						<td>{{task.dueAt|date("d/m/y")}}</td>
-						<td>{{task.tag.name}}</td>
+						<td>{{task.tag.name|raw}}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<p>Votre AppToDo adorée</p>
+		<p>Votre ToDoAPP adorée</p>
 	</body>
 </html>
