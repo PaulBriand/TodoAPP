@@ -32,7 +32,12 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     private UrlGeneratorInterface $urlGenerator;
 
-    private MailerService $mailer;
+    /**
+     * Undocumented variable
+     *
+     * @var MailerService
+     */
+    private $mailer;
 
     /**
      * @var TaskRepository
