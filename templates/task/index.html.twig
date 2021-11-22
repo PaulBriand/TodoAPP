@@ -11,43 +11,50 @@
 {% block body %}
 
 	<div class="container">
-		<<<<<<<HEAD<ahref="{{path('task_create')}}"class="btnbtn-primary">{{'general.button.add'|trans}}</a><tableclass="tabletable-stripedtabled-bordered"id="tasksTable"><thead><th>ID</th><th>general.name{%endtrans%}</th><th>{%transfrom'messages'%}general.description{%endtrans%}</th><th>{%transfrom'messages'%}general.due_date{%endtrans%}</th><th>{%transfrom'messages'%}general.category{%endtrans%}</th><th>LOL</th><th>LOL</th>=======<divclass="d-flexjustify-content-center"><pclass="fw-boldtext-{{label}}">{{message}}</p></div><ahref="{{path('task_create')}}"class="btnbtn-primary">GestionUTILISATEUR</a><ahref="{{path('task_create')}}"class="btnbtn-primary">{{'general.button.add'|trans}}</a><tableclass="tabletable-stripedtabled-bordered"id="tasksTable"><thead><th>ID</th><th>{{'general.name'|trans}}</th><th>{%transfrom'messages'%}general.description{%endtrans%}</th><th>{%transfrom'messages'%}general.due_date{%endtrans%}</th><th>{%transfrom'messages'%}general.category{%endtrans%}</th><th></th><th></th>>> {% trans from 'messages' %} {% for label, messages in app.flashes %} {% for message in messages %} {% endfor %} {% endfor %} {% if is_granted('ROLE_ADMIN') %} {% endif %}>>>>> 24ea32d6fa2dc6a0cc577e040d99f248d3a92651
-	</thead>
-	<tbody>
-		{% if tasks is defined %}
-			{% for task in tasks %}
-				<tr>
-					<th scope="row">{{ task.id }}</th>
-					<td>{{ task.name }}</td>
-					<td>{{ task.description }}</td>
-					<td>{{ task.dueAt | date('d/m/y H:i:s') }}</td>
-					<td>{{ task.tag.name }}</td>
-					<td>
-						<a href="{{ path('task_update',{"id": task.id}) }}" class="btn btn-success">{{'general.button.update' | trans}}
-						</a>
-					</td>
-					<td>
-						<a href="{{ path('task_delete',{"id": task.id}) }}" class="btn btn-danger">{{'general.button.delete' | trans}}</a>
-					</td>
-				</tr>
-			{% endfor %}
-		{% endif %}
-	</tbody>
-</table></div>{% endblock %}{% block javascripts %}<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script><script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script><script>
-$(document).ready(function () {
+		<table>
+			{# <tbody> #}
+			{% if tasks is defined %}
+				{% for task in tasks %}
+					<tr>
+						<th scope="row">{{ task.id }}</th>
+						<td>{{ task.name }}</td>
+						<td>{{ task.description }}</td>
+						<td>{{ task.dueAt | date('d/m/y H:i:s') }}</td>
+						<td>{{ task.tag.name }}</td>
+						<td>
+							<a href="{{ path('task_update',{"id": task.id}) }}" class="btn btn-success">{{'general.button.update' | trans}}
+							</a>
+						</td>
+						<td>
+							<a href="{{ path('task_delete',{"id": task.id}) }}" class="btn btn-danger">{{'general.button.delete' | trans}}</a>
+						</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+			{# </tbody> #}
+		</table>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function () {
 $('#tableTasks').DataTable({
 language: {
-"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu              {% endtrans %}",
-"sSearch": "{% trans from 'messages' %}datatables.sSearch             {% endtrans %}",
-"sInfo": "{% trans from 'messages' %}datatables.sInfo             {% endtrans %}",
+"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu                  {% endtrans %}",
+"sSearch": "{% trans from 'messages' %}datatables.sSearch                 {% endtrans %}",
+"sInfo": "{% trans from 'messages' %}datatables.sInfo                 {% endtrans %}",
 "sInfoEmpty": "Showing 0 to 0 of 0 records",
 "sInfoFiltered": "(filtered from _MAX_ total records)",
 "paginate": {
-"first": "{% trans from 'messages' %}datatables.first      {% endtrans %}",
-"previous": "{% trans from 'messages' %}datatables.previous      {% endtrans %}",
-"next": "{% trans from 'messages' %}datatables.next      {% endtrans %}",
-"last": "{% trans from 'messages' %}datatables.last      {% endtrans %}"
+"first": "{% trans from 'messages' %}datatables.first          {% endtrans %}",
+"previous": "{% trans from 'messages' %}datatables.previous          {% endtrans %}",
+"next": "{% trans from 'messages' %}datatables.next          {% endtrans %}",
+"last": "{% trans from 'messages' %}datatables.last          {% endtrans %}"
 }
 }
 });
-});</script>{% endblock %}
+});
+	</script>
+{% endblock %}
