@@ -4,19 +4,14 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Task;
-use App\Entity\User;
 use App\Form\TaskType;
-use App\Services\MailerService;
-use Symfony\Component\Mime\Email;
 use App\Repository\TaskRepository;
-use DateInterval;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Mailer\Exception\TransportException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TaskController extends AbstractController
@@ -97,5 +92,34 @@ class TaskController extends AbstractController
         );
 
         return $this->redirectToRoute('task_listing');
+    }
+
+
+    /**
+     * @Route("/task/listing/download", name="Task_Download")
+     */
+    public function downloadPDF()
+    {
+        $tasks = $this->repository->findAll();
+
+        $PDFOptions = new Options;
+        $PDFOptions->set('defaultFont', 'Arial');
+        //$PDFOptions->setIsRemoteEnabled(true);
+
+        $DomPDF = new Dompdf($PDFOptions);
+
+        $html = $this->renderView('pdf/pdfdownload.html.twig', [
+            'tasks' => $tasks
+        ]);
+
+        $DomPDF->loadHtml($html);
+        $DomPDF->setPaper('A4', 'landscape');
+        $DomPDF->render();
+
+        $file = 'Jadore les PDF';
+
+        $DomPDF->stream($file, ['Attachement => true']);
+
+        return new Response();
     }
 }

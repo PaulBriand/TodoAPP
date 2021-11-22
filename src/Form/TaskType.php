@@ -21,9 +21,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 class TaskType extends AbstractType
 {
     /**
-     * 
+     * Undocumented variable
      *
-     * @var TranslatorInterface 
+     * @var TranslatorInterface
      */
     private $translator;
 
