@@ -40,7 +40,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/task/listing", name="task_listing")
      */
-    public function index(MailerService $mailer): Response
+    public function index(): Response
     {
         // On récupère les tâches
         $tasks = $this->repository->findAll();
