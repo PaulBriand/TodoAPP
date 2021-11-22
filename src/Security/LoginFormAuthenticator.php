@@ -33,13 +33,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     private UrlGeneratorInterface $urlGenerator;
 
     /**
-     * Undocumented variable
-     *
-     * @var MailerService
-     */
-    private $mailer;
-
-    /**
      * @var TaskRepository
      */
     private $repository;
@@ -49,7 +42,14 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
      */
     private $manager;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, TaskRepository $repository, EntityManagerInterface $manager, MailerService $mailer)
+    /**
+     *
+     * @var MailerService
+     */
+    private $mailer;
+
+
+    public function __construct(MailerService $mailer, UrlGeneratorInterface $urlGenerator, TaskRepository $repository, EntityManagerInterface $manager)
     {
         $this->urlGenerator = $urlGenerator;
         $this->repository = $repository;
