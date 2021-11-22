@@ -17,12 +17,19 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
+
 class TaskType extends AbstractType
 {
     /**
+<<<<<<< HEAD
      * Undocumented variable
      *
      * @var TranslatorInterface
+=======
+     * 
+     *
+     * @var TranslatorInterface 
+>>>>>>> 24ea32d6fa2dc6a0cc577e040d99f248d3a92651
      */
     private $translator;
 
@@ -50,6 +57,7 @@ class TaskType extends AbstractType
 
             ->add('tag', EntityType::class, [
                 'class' => Tag::class,
+                'label' => $this->translator->trans('general.category'),
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
                 },
