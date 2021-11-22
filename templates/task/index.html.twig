@@ -18,6 +18,9 @@
 				</div>
 			{% endfor %}
 		{% endfor %}
+		{% if is_granted('ROLE_ADMIN') %}
+			<a href="{{ path('task_create') }}" class="btn btn-primary">Gestion UTILISATEUR</a>
+		{% endif %}
 		<a href="{{ path('task_create') }}" class="btn btn-primary">{{'general.button.add'| trans}}</a>
 		<table class="table table-striped tabled-bordered" id="tasksTable">
 			<thead>
@@ -59,16 +62,16 @@
 		$(document).ready(function () {
 $('#tasksTable').DataTable({
 language: {
-"sLengthMenu": "{% trans from 'messages' %}datables.sLengthMenu       {% endtrans %}",
-"sSearch": "{% trans from 'messages' %}datables.sSearch       {% endtrans %}",
-"sInfo": "{% trans from 'messages' %}datables.sInfo       {% endtrans %}",
+"sLengthMenu": "{% trans from 'messages' %}datables.sLengthMenu           {% endtrans %}",
+"sSearch": "{% trans from 'messages' %}datables.sSearch           {% endtrans %}",
+"sInfo": "{% trans from 'messages' %}datables.sInfo           {% endtrans %}",
 "sInfoEmpty": "Showing 0 to 0 of 0 records",
 "sInfoFiltered": "(filtered from _MAX_ total records)",
 "paginate": {
-"first": "{% trans from 'messages' %}datables.first       {% endtrans %}",
-"previous": "{% trans from 'messages' %}datables.previous       {% endtrans %}",
-"next": "{% trans from 'messages' %}datables.next       {% endtrans %}",
-"last": "{% trans from 'messages' %}datables.last       {% endtrans %}"
+"first": "{% trans from 'messages' %}datables.first           {% endtrans %}",
+"previous": "{% trans from 'messages' %}datables.previous           {% endtrans %}",
+"next": "{% trans from 'messages' %}datables.next           {% endtrans %}",
+"last": "{% trans from 'messages' %}datables.last           {% endtrans %}"
 }
 }
 

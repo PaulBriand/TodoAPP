@@ -7,7 +7,7 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`}
-																																												           and uncomment the following Encore helpers to start using Symfony UX #}
+																																														           and uncomment the following Encore helpers to start using Symfony UX #}
 
 		<link rel="stylesheet" href="https://bootswatch.com/5/cerulean/bootstrap.min.css">
 		{% block stylesheets %}
@@ -21,10 +21,10 @@
 	<body class="text-center">
 		<div>
 			<button>
-				<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), {_locale: 'en'}) }}">English</a>
+				{# <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), {_locale: 'en'}) }}">English</a> #}
 			</button>
 			<button>
-				<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), {_locale: 'fr'}) }}">Français</a>
+				{# <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), {_locale: 'fr'}) }}">Français</a> #}
 			</button>
 		</div>
 		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
