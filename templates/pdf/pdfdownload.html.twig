@@ -1,16 +1,27 @@
 {% extends "pdf/base-pdf.html.twig" %}
-
 {% block body %}
-
-<div class="container">
-	<table border="1" id="tasksTable>
-					{# <tbody> #}
-					{% if tasks is defined %}
-						{% for task in tasks %}
-							<tr>
-								<th scope=" row">{{ task.id }}</th>
-	<td>{{ task.name }}</td>
-	<td>{{ task.description }}</td>
-	<td>{{ task.dueAt | date('d/m/y H:i:s') }}</td>
-	<td>{{ task.tag.name }}</td>
-</tr>{% endfor %}{% endif %}{# </tbody> #}</table></div>{% endblock %}
+	<table border="1" id="tasksTable">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Description</th>
+				<th>Date effective</th>
+				<th>Catégorie</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if tasks is defined %}
+				{% for task in tasks %}
+					<tr>
+						<td>{{ task.id }}</td>
+						<td>{{ task.name }}</td>
+						<td>{{ task.description }}</td>
+						<td>{{ task.dueAt | date('d/m/Y H:i')}}</td>
+						<td>{{ task.tag.name }}</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+		</tbody>
+	</table>
+{% endblock %}

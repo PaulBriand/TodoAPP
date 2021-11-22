@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use DateTime;
+use DateInterval;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -93,33 +94,32 @@ class TaskController extends AbstractController
 
         return $this->redirectToRoute('task_listing');
     }
-
-
     /**
-     * @Route("/task/listing/download", name="Task_Download")
+     * 
+     *@Route("/task/listing/download", name="task_download")
      */
-    public function downloadPDF()
+    public function dowloadPdf()
     {
         $tasks = $this->repository->findAll();
+        // Gestion des options
+        $pdfoption = new Options;
+        $pdfoption->set('default', "Arial");
+        // $pdfoption->setIsRemoteEnabled(true);
 
-        $PDFOptions = new Options;
-        $PDFOptions->set('defaultFont', 'Arial');
-        //$PDFOptions->setIsRemoteEnabled(true);
-
-        $DomPDF = new Dompdf($PDFOptions);
+        // On va instantier le domPdf pour créer le téléchargement
+        $dompdf = new Dompdf($pdfoption);
 
         $html = $this->renderView('pdf/pdfdownload.html.twig', [
-            'tasks' => $tasks
+            'tasks' => $tasks,
+
         ]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
 
-        $DomPDF->loadHtml($html);
-        $DomPDF->setPaper('A4', 'landscape');
-        $DomPDF->render();
-
-        $file = 'Jadore les PDF';
-
-        $DomPDF->stream($file, ['Attachement => true']);
-
-        return new Response();
+        $fichier = 'J\'dore les pdfs';
+        $dompdf->stream($fichier, [
+            'Attachement' => true
+        ]);
     }
 }
