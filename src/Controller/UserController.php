@@ -45,7 +45,7 @@ class UserController extends AbstractController
     {
         // Récupérer les infos de l'utilisateur connecté
         $user = $this->getUser();
-        //dd($user);
+        dd($user);
 
         // Dans le repo, on récupère les entrées
         $users = $this->repository->findAll();
