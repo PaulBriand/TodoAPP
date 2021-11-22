@@ -15,3 +15,5 @@ datatables:
   sInfo: Affichage de _START_ à _END_ sur _TOTAL_ entrées
   previous: Précédent
   next: Suivant
+  first: Premier
+  last: Dernier

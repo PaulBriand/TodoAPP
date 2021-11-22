@@ -15,3 +15,5 @@ datatables:
   sInfo: Showing _START_ to _END_ of _TOTAL_ records
   previous: Previous
   next: Next
+  first: First
+  last: Last

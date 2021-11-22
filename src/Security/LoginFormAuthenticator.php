@@ -70,10 +70,10 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         //On intitialise la fonction
-        $user = $request->request->get('email', ''); //On récupère le User 
+        $mailuser = $request->request->get('email', ''); //On récupère le MailUser 
 
         //On récupère le nom d'utilisateur à partir de son adresse e-mail
-        $username = explode('@', $user)[0];
+        $username = explode('@', $mailuser)[0];
 
         // On instantie la date d'aujourd'hui
         $now = new DateTime();
@@ -110,7 +110,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
                 // On envoie l'e-mail
                 $this->mailer->sendEmail(
                     "Attention ! Votre tache arrive à échéance !",
-                    $user,
+                    $mailuser,
                     'emails\alert.html.twig',
                     $parameters
                 );
@@ -125,7 +125,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
                 // On envoie le e-mail
                 $this->mailer->sendEmail(
                     "Attention ! Votre tache est arrivée à échéance !",
-                    $user,
+                    $mailuser,
                     'emails\alert.html.twig',
                     $parameters
                 );
