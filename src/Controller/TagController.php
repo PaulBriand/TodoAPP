@@ -30,15 +30,26 @@ class TagController extends AbstractController
     /**
      * @Route("/create", name="tag_create", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, TagRepository $tagRepository): Response
     {
         $tag = new Tag();
+        // dd($tag);
         $form = $this->createForm(TagType::class, $tag);
         $form->handleRequest($request);
+        $arrayTags = $tagRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($tag);
-            $entityManager->flush();
+
+            try {
+                $entityManager->persist($tag);
+                $entityManager->flush();
+            } catch (Exception $e) {
+                $this->addFlash(
+                    'danger',
+                    'flash.create_impossible'
+                );
+            }
+
 
             return $this->redirectToRoute('tag_listing', [], Response::HTTP_SEE_OTHER);
         }
