@@ -6,6 +6,7 @@ use App\Entity\Tag;
 use App\Form\TagType;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,7 +40,7 @@ class TagController extends AbstractController
             $entityManager->persist($tag);
             $entityManager->flush();
 
-            return $this->redirectToRoute('tag_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('tag_listing', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('tag/new.html.twig', [
@@ -84,8 +85,16 @@ class TagController extends AbstractController
     public function delete(Request $request, Tag $tag, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $tag->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($tag);
-            $entityManager->flush();
+            try {
+                $entityManager->remove($tag);
+                $entityManager->flush();
+            } catch (Exception $e) {
+                // dd($e);
+                $this->addFlash(
+                    'danger',
+                    'flash.delete_impossible'
+                );
+            }
         }
 
         return $this->redirectToRoute('tag_listing', [], Response::HTTP_SEE_OTHER);
