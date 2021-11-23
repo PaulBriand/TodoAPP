@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{'general.category'|trans}}
+{% endblock %}
+
+{% block body %}
+	<h1>{{'general.category'|trans}}</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ tag.id }}</td>
+			</tr>
+			<tr>
+				<th>{{'general.name'|trans}}</th>
+				<td>{{ tag.name }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	{{ include('tag/_delete_form.html.twig') }}
+
+	<a href="{{ path('tag_listing') }}" class="btn btn-secondary mt-2">{{'general.button.back_to_list'|trans}}</a>
+{% endblock %}

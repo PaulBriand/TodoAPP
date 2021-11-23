@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{'tags.utTitle'|trans}}
+{% endblock %}
+
+{% block body %}
+	<h1>{{'tags.utTitle'|trans}}</h1>
+
+	{{ include('tag/_form.html.twig', {'button_label': 'general.button.update'|trans}) }}
+
+	<a href="{{ path('tag_listing') }}">{{'general.button.back_to_list'|trans}}</a>
+
+{% endblock %}

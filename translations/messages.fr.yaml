@@ -3,12 +3,16 @@ general:
   description: Description
   due_date: Date effective
   category: Catégorie
+
   button:
     success: Valider
     cancel: Annuler
     update: Modifier
     delete: Supprimer
     add: Ajouter
+    show: Info
+    back_to_list: Retour à la liste
+    list_tag: Catégories
 datatables:
   sLengthMenu: Affichage de _MENU_ entrées par pages
   sSearch: Rechercher
@@ -17,3 +21,10 @@ datatables:
   next: Suivant
   first: Premier
   last: Dernier
+tags:
+  ctTitle: Créer une Nouvelle Catégorie
+  cTabTitle: Nouvelle Catégorie
+  lTabTitle: Catégorie
+  ltTitle: Liste des Catégories
+  utTitle: Modifier la Catégorie
+  no_found: Catégorie non trouvée
