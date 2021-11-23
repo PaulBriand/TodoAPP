@@ -30,3 +30,4 @@ tags:
   no_found: Catégorie non trouvée
 flash:
   delete_impossible: "La suppression est impossible"
+  delete_complete: La suppression  a réussi

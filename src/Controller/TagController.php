@@ -96,6 +96,10 @@ class TagController extends AbstractController
                 );
             }
         }
+        $this->addFlash(
+            'success',
+            'flash.delete_complete'
+        );
 
         return $this->redirectToRoute('tag_listing', [], Response::HTTP_SEE_OTHER);
     }
