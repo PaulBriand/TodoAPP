@@ -29,3 +29,4 @@ tags:
   no_found: Tag not found
 flash:
   delete_impossible: Removal impossible
+  delete_complete: Removal completed
