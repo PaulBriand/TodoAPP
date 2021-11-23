@@ -28,3 +28,5 @@ tags:
   ltTitle: Liste des Catégories
   utTitle: Modifier la Catégorie
   no_found: Catégorie non trouvée
+flash:
+  delete_impossible: "La suppression est impossible"

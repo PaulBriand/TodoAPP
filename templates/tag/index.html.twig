@@ -7,6 +7,14 @@
 {% block body %}
 	<h1>{{'tags.ltTitle'|trans}}</h1>
 
+	{% for label, messages in app.flashes %}
+		{% for message in messages %}
+			<div class="alert alert-{{ label }}">
+				{{message|trans}}
+			</div>
+		{% endfor %}
+
+	{% endfor %}
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
@@ -35,4 +43,5 @@
 	</table>
 
 	<a href="{{path('tag_create')}}" class="btn btn-primary mx-auto">{{'general.button.add'|trans}}</a>
-{% endblock %}
+</br>
+<a href="{{path('task_listing')}}" class="btn btn-secondare mx-auto">{{'general.button.back_to_list'|trans}}</a>{% endblock %}
