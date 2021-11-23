@@ -27,3 +27,5 @@ tags:
   ltTitle: Tags List
   utTitle: Update Tag
   no_found: Tag not found
+flash:
+  delete_impossible: Removal impossible
