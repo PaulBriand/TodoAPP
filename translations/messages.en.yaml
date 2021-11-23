@@ -9,6 +9,9 @@ general:
     update: Update
     delete: Delete
     add: Create
+    show: Show
+    back_to_list: back to list
+    list_tag: Tags
 datatables:
   sLengthMenu: Show de _MENU_ entries per page
   sSearch: Search
@@ -17,3 +20,10 @@ datatables:
   next: Next
   first: First
   last: Last
+tags:
+  ctTitle: Create new Tag
+  cTabTitle: New Tag
+  lTabTitle: Tag Index
+  ltTitle: Tags List
+  utTitle: Update Tag
+  no_found: Tag not found
