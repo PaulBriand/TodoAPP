@@ -9,6 +9,7 @@ general:
     update: Update
     delete: Delete
     add: Create
+    show: Show
 datatables:
   sLengthMenu: Show de _MENU_ entries per page
   sSearch: Search

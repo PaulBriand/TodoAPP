@@ -3,12 +3,14 @@ general:
   description: Description
   due_date: Date effective
   category: Catégorie
+
   button:
     success: Valider
     cancel: Annuler
     update: Modifier
     delete: Supprimer
     add: Ajouter
+    show: Info
 datatables:
   sLengthMenu: Affichage de _MENU_ entrées par pages
   sSearch: Rechercher
