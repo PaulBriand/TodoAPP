@@ -28,9 +28,12 @@
 					<th>Delete</th>
 				</tr>
 				{% for label, messages in app.flashes %}
-					{% for message in messages %}{% endfor %}
+					{% for message in messages %}
+						<div class="flash-{{ label }}">
+							{{message}}
+						</div>
+					{% endfor %}
 				{% endfor %}
-				{% if is_granted('ROLE_ADMIN') %}{% endif %}
 			</thead>
 			<tbody>
 				{% if tasks is defined %}
@@ -63,16 +66,16 @@
 		$(document).ready(function () {
 $('#tasksTable').DataTable({
 language: {
-"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu                  {% endtrans %}",
-"sSearch": "{% trans from 'messages' %}datatables.sSearch                  {% endtrans %}",
-"sInfo": "{% trans from 'messages' %}datatables.sInfo                  {% endtrans %}",
+"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu                    {% endtrans %}",
+"sSearch": "{% trans from 'messages' %}datatables.sSearch                    {% endtrans %}",
+"sInfo": "{% trans from 'messages' %}datatables.sInfo                    {% endtrans %}",
 "sInfoEmpty": "Showing 0 to 0 of 0 records",
 "sInfoFiltered": "(filtered from _MAX_ total records)",
 "paginate": {
-"first": "{% trans from 'messages' %}datatables.first                  {% endtrans %}",
-"previous": "{% trans from 'messages' %}datatables.previous                  {% endtrans %}",
-"next": "{% trans from 'messages' %}datatables.next                  {% endtrans %}",
-"last": "{% trans from 'messages' %}datatables.last                  {% endtrans %}"
+"first": "{% trans from 'messages' %}datatables.first                    {% endtrans %}",
+"previous": "{% trans from 'messages' %}datatables.previous                    {% endtrans %}",
+"next": "{% trans from 'messages' %}datatables.next                    {% endtrans %}",
+"last": "{% trans from 'messages' %}datatables.last                    {% endtrans %}"
 }
 }
 });
