@@ -30,3 +30,5 @@ tags:
 flash:
   delete_impossible: Removal impossible
   delete_complete: Removal completed
+  create_impossible: Task already exits
+  create_complete: Creation of new task completed

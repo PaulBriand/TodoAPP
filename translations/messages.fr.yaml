@@ -31,3 +31,5 @@ tags:
 flash:
   delete_impossible: La suppression est impossible
   delete_complete: La suppression  a réussi
+  create_impossible: La tâche existe déjà
+  create_complete: Une nouvelle tâche a bien été créer
