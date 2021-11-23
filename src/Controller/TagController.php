@@ -69,7 +69,7 @@ class TagController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('tag_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('tag_listing', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('tag/edit.html.twig', [

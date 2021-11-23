@@ -1,12 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Tag
+{% block title %}
+	{{'tag.cTabTitle'|trans}}
 {% endblock %}
 
 {% block body %}
-	<h1>Create new Tag</h1>
+	<h1>{{'tags.ctTitle'|trans}}</h1>
 
 	{{ include('tag/_form.html.twig') }}
 
-	<a href="{{ path('tag_listing') }}">back to list</a>
+	<a href="{{ path('tag_listing') }}">{{'general.button.back_to_list'|trans}}</a>
 {% endblock %}
