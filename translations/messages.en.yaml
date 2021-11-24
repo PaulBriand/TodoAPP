@@ -28,7 +28,9 @@ tags:
   utTitle: Update Tag
   no_found: Tag not found
 flash:
-  delete_impossible: Removal impossible
+  delete_impossible: Removal impossible the tag is used
   delete_complete: Removal completed
-  create_impossible: Task already exits
+  create_impossible: Task already exists
   create_complete: Creation of new task completed
+  update_impossible: The task can't be updated because it already exists
+  update_complete: The task is updated

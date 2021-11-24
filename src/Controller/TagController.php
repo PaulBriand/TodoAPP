@@ -48,9 +48,13 @@ class TagController extends AbstractController
                     'danger',
                     'flash.create_impossible'
                 );
+                return $this->redirectToRoute('tag_create', [], Response::HTTP_SEE_OTHER);
             }
 
-
+            $this->addFlash(
+                'success',
+                'flash.create_complete'
+            );
             return $this->redirectToRoute('tag_listing', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -79,7 +83,19 @@ class TagController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            try {
+                $entityManager->flush();
+            } catch (Exception $e) {
+                $this->addFlash(
+                    'danger',
+                    'flash.update_impossible'
+                );
+                return $this->redirectToRoute('tag_update', [], Response::HTTP_SEE_OTHER);
+            }
+            $this->addFlash(
+                'success',
+                'flash.update_completed'
+            );
 
             return $this->redirectToRoute('tag_listing', [], Response::HTTP_SEE_OTHER);
         }
@@ -105,6 +121,7 @@ class TagController extends AbstractController
                     'danger',
                     'flash.delete_impossible'
                 );
+                return $this->redirectToRoute('tag_listing', [], Response::HTTP_SEE_OTHER);
             }
         }
         $this->addFlash(
