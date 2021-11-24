@@ -7,6 +7,14 @@
 {% block body %}
 	<h1>{{'tags.utTitle'|trans}}</h1>
 
+	{% for label, messages in app.flashes %}
+		{% for message in messages %}
+			<div class="alert alert-{{ label }}">
+				{{message|trans}}
+			</div>
+		{% endfor %}
+	{% endfor %}
+
 	{{ include('tag/_form.html.twig', {'button_label': 'general.button.update'|trans}) }}
 
 	<a href="{{ path('tag_listing') }}">{{'general.button.back_to_list'|trans}}</a>
