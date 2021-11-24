@@ -38,8 +38,16 @@ class TaskController extends AbstractController
      */
     public function index(): Response
     {
-        // On récupère les tâches
-        $tasks = $this->repository->findAll();
+        $user = $this->getUser();
+        $role = $user->getRoles();
+        $admin = "ROLE_ADMIN";
+        $id = $user->getId();
+
+        if (in_array($admin, $role)) {
+            $tasks = $this->repository->findAll();
+        } else {
+            $tasks = $this->repository->findBy(['user' => $id]);
+        }
 
         return $this->render('task/index.html.twig', [
             'tasks' => $tasks,
@@ -56,6 +64,9 @@ class TaskController extends AbstractController
         if (!$task) {
             $task = new Task;
             $task->setCreatedAt(new \DateTime());
+
+            $user = $this->getUser();
+            $task->setUser($user);
         }
 
 
