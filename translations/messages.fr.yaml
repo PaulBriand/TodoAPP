@@ -32,6 +32,6 @@ flash:
   delete_impossible: La suppression est impossible la catégorie est en cours d'utilisation
   delete_complete: La suppression  a réussi
   create_impossible: La tâche existe déjà
-  create_complete: Une nouvelle tâche a bien été créé
+  create_complete: Une nouvelle tâche a bien été créer
   update_impossible: La tâche ne peut être modifiée car le nom existe déjà
   update_complete: La tâche a été modifiée

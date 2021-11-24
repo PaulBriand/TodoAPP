@@ -27,31 +27,6 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        for ($c = 0; $c < 5; $c++) {
-
-            $tag = new Tag();
-            $tag->setName($faker->colorName());
-
-            $manager->persist($tag);
-        }
-
-        $manager->flush();
-
-        $allTags = $manager->getRepository(Tag::class)->findAll();
-
-
-        for ($t = 0; $t < mt_rand(15, 30); $t++) {
-
-            $task = new Task();
-            $task->setName($faker->sentence(6));
-            $task->setDescription($faker->paragraph(3));
-            $task->setCreatedAt(new \DateTime());
-            $task->setDueAt($faker->dateTimeBetween('now', '15 days'));
-            $task->setTag($faker->randomElement($allTags));
-
-            $manager->persist($task);
-        }
-
         for ($u = 0; $u < 5; $u++) {
             $user = new User;
             $hash = $this->encoder->hashPassword($user, "password");
@@ -66,6 +41,34 @@ class AppFixtures extends Fixture
 
             $manager->persist($user);
         }
+
+        for ($c = 0; $c < 5; $c++) {
+
+            $tag = new Tag();
+            $tag->setName($faker->colorName());
+
+            $manager->persist($tag);
+        }
+
+        $manager->flush();
+
+        $allTags = $manager->getRepository(Tag::class)->findAll();
+
+
+        $listeUsers = $manager->getRepository(User::class)->findAll();
+        for ($t = 0; $t < mt_rand(15, 30); $t++) {
+
+            $task = new Task();
+            $task->setName($faker->sentence(6));
+            $task->setDescription($faker->paragraph(3));
+            $task->setCreatedAt(new \DateTime());
+            $task->setDueAt($faker->dateTimeBetween('now', '15 days'));
+            $task->setTag($faker->randomElement($allTags));
+            $task->setUser($faker->randomElement($listeUsers));
+
+            $manager->persist($task);
+        }
+
 
         $manager->flush();
     }
