@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use DateTime;
+use Bartender;
 use Dompdf\Dompdf;
 use App\Entity\Tag;
 use Dompdf\Options;
@@ -48,11 +49,15 @@ class TaskType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $bartender = new Bartender();
+        $filteredBeerListNameName = $bartender->filterBeerList();
+
         $builder
-            ->add('name', TextType::class, [
+
+            ->add('name', ChoiceType::class, [
+                'choices' => $filteredBeerListNameName,
                 'label' => $this->translator->trans('general.name')
             ])
-
             ->add('description', TextareaType::class, [
                 'label' => $this->translator->trans('general.description')
             ])

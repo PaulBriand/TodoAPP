@@ -1,5 +1,6 @@
 <?php
 
+// src/Security/AccessDeniedHandler.php
 namespace App\Security;
 
 use Symfony\Component\HttpFoundation\Request;
