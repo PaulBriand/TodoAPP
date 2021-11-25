@@ -12,87 +12,69 @@
 
 	<div class="container">
 
-		<a href="{{path('user_listing')}}" class="btn btn-primary mx-auto">liste USER</a>
-		<a href="{{path('tag_listing')}}" class="btn btn-primary mx-auto">{{'general.button.list_tag'|trans}}</a>
-		<a href="{{path('task_download')}}" class="btn btn-primary mx-auto">Download PDF</a>
+		{% if is_granted("ROLE_ADMIN")%}
+			<a href="{{path('user_listing')}}" class="btn btn-info mx-auto">{{'general.button.list_user'|trans}}</a>
+			<a href="{{path('tag_listing')}}" class="btn btn-info mx-auto">{{'general.button.list_tag'|trans}}</a>
+		{% endif %}
+		<br><br>
+
+		<h1 class="d-flex justify-content-center mb-5">{{ 'general.title_list_task' | trans }}</h1>
+
+		<a href="{{path('task_archives')}}" class="btn btn-primary mx-auto">{{'general.button.go_to_archives'|trans}}</a>
+		<a href="{{path('task_download')}}" class="btn btn-primary mx-auto">{{'general.button.download_pdf'|trans}}</a>
 		<a href="{{path('task_create')}}" class="btn btn-primary mx-auto">{{'general.button.add'|trans}}</a>
-		<table class="table table-striped tabled-bordered" id="tasksTable">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>{{'general.name'|trans}}</th>
-					<th>{% trans from 'messages'%}general.description{%endtrans%}</th>
-					<th>{% trans from 'messages'%}general.due_date{%endtrans%}</th>
-					<th>{% trans from 'messages'%}general.category{%endtrans%}</th>
-					<th>{{'general.status.title' | trans}}</th>
-					<th>Update</th>
-					<th>Delete</th>
-				</tr>
-				{% for label, messages in app.flashes %}
-					{% for message in messages %}
-						<div class="flash-{{ label }}">
-							{{message}}
-						</div>
-					{% endfor %}
-				{% endfor %}
-			</thead>
-			<tbody>
-				{% if tasks is defined %}
-					{% for task in tasks %}
-						<tr>
-							<td scope="row">{{ task.id }}</td>
-							<td>{{ task.name }}</td>
-							<td>{{ task.description }}</td>
-							<td>{{ task.dueAt | date('d/m/y H:i:s') }}</td>
-							<td>{{ task.tag.name }}</td>
-							{% if task.status.label == 1 %}
-								<td class="todo">
-								{% else %}
-									{% if task.status.label == 2 %}
-										<td class="wip">
-										{% else %}
-											{% if task.status.label == 3 %}
-												<td class="done">
-												{% endif %}
-											{% endif %}
-										{% endif %}
-										{{('general.status.' ~ task.status.label) | trans}}</td>
-									<td>
-										<a href="{{ path('task_update',{"id": task.id}) }}" class="btn btn-success">{{'general.button.update' | trans}}</a>
-									</td>
-									<td>
-										<a href="{{ path('task_delete',{"id": task.id}) }}" class="btn btn-danger">{{'general.button.delete' | trans}}</a>
-									</td>
-								</tr>
-							{% endfor %}
-						{% endif %}
-					</tbody>
-				</table>
-			</tbody>
+
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="alert alert-{{ label }}">
+					{{message|trans}}
+				</div>
+			{% endfor %}
+		{% endfor %}
+
+
+		<div class="d-flex justify-content-between mb-3">
+			<select name="archives" id="selectedValues" onchange='location = this.value;'>
+				<option value="archives" selected>Type d'archivage</option>
+				<option value="archives_auto">Auto</option>
+				<option value="archives_manual">Manuel</option>
+			</select>
 		</div>
-	{% endblock %}
-
-	{% block javascripts %}
-
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-		<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-		<script>
-			$(document).ready(function () {
+		{% include 'task/task_listing.html.twig' %}
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script>
+	<script>
+		$(document).ready(function () {
 $('#tasksTable').DataTable({
+
+"order": [
+[3, "asc"]
+],
+"columnDefs": [
+{
+"targets": 3,
+"type": "date-eu"
+}
+],
+
 language: {
-"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu                         {% endtrans %}",
-"sSearch": "{% trans from 'messages' %}datatables.sSearch                         {% endtrans %}",
-"sInfo": "{% trans from 'messages' %}datatables.sInfo                         {% endtrans %}",
+"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu {% endtrans %}",
+"sSearch": "{% trans from 'messages' %}datatables.sSearch {% endtrans %}",
+"sInfo": "{% trans from 'messages' %}datatables.sInfo {% endtrans %}",
 "sInfoEmpty": "Showing 0 to 0 of 0 records",
 "sInfoFiltered": "(filtered from _MAX_ total records)",
 "paginate": {
-"first": "{% trans from 'messages' %}datatables.first                         {% endtrans %}",
-"previous": "{% trans from 'messages' %}datatables.previous                         {% endtrans %}",
-"next": "{% trans from 'messages' %}datatables.next                         {% endtrans %}",
-"last": "{% trans from 'messages' %}datatables.last                         {% endtrans %}"
+"first": "{% trans from 'messages' %}datatables.first {% endtrans %}",
+"previous": "{% trans from 'messages' %}datatables.previous {% endtrans %}",
+"next": "{% trans from 'messages' %}datatables.next {% endtrans %}",
+"last": "{% trans from 'messages' %}datatables.last {% endtrans %}"
 }
 }
 });
 });
-		</script>
-	{% endblock %}
+	</script>
+{% endblock %}

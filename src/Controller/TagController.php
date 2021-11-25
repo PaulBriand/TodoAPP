@@ -90,7 +90,7 @@ class TagController extends AbstractController
                     'danger',
                     'flash.update_impossible'
                 );
-                return $this->redirectToRoute('tag_update', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('tag_update', ["id" => $tag->getId()], Response::HTTP_SEE_OTHER);
             }
             $this->addFlash(
                 'success',

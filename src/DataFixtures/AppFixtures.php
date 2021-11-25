@@ -43,11 +43,8 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
-<<<<<<< HEAD
         $manager->flush();
 
-=======
->>>>>>> feature_Lien_user
         for ($c = 0; $c < 5; $c++) {
 
             $tag = new Tag();
@@ -86,6 +83,7 @@ class AppFixtures extends Fixture
             $task->setTag($faker->randomElement($allTags));
             $task->setUser($faker->randomElement($listUsers));
             $task->setStatus($faker->randomElement($status));
+            $task->setIsArchived(0);
 
             $manager->persist($task);
         }

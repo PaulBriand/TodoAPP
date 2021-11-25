@@ -8,6 +8,7 @@ use Twig\Environment;
 use App\Services\MailerService;
 use Twig\Loader\LoaderInterface;
 use App\Repository\TaskRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -38,6 +39,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     private $repository;
 
     /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
      * @var EntityManagerInterface
      */
     private $manager;
@@ -49,10 +55,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     private $mailer;
 
 
-    public function __construct(MailerService $mailer, UrlGeneratorInterface $urlGenerator, TaskRepository $repository, EntityManagerInterface $manager)
+    public function __construct(MailerService $mailer, UrlGeneratorInterface $urlGenerator, TaskRepository $repository, UserRepository $userRepository, EntityManagerInterface $manager)
     {
         $this->urlGenerator = $urlGenerator;
         $this->repository = $repository;
+        $this->userRepository = $userRepository;
         $this->manager = $manager;
         $this->mailer = $mailer;
     }
@@ -74,6 +81,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+
         //On intitialise la fonction
         $mailuser = $request->request->get('email', ''); //On récupère le MailUser 
 
@@ -83,8 +91,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         // On instantie la date d'aujourd'hui
         $now = new DateTime();
 
+        $user = $this->userRepository->findOneBy(['email' => $mailuser]);
         // On récupère les tâches
-        $tasks = $this->repository->findAll();
+        $tasks = $this->repository->findBy(['user' => $user->getId(), 'isArchived' => '0']);
 
         // On initialise le msg 
         $msg = '';

@@ -6,9 +6,8 @@ general:
   requestpage: The requested page couldn't be located. Checkout for any URL misspelling or
   error403Titre: Access Denied
   category: Tag
-  backhomepage: Back to the Home Page
-  requestpage: The requested page couldn't be located. Checkout for any URL misspelling or
-  error403Titre: Access Denied
+  title_list_task: List of tasks
+  title_list_task_archive: List of archived tasks
   status:
     title: Status
     1: To do
@@ -20,9 +19,14 @@ general:
     update: Update
     delete: Delete
     add: Create
+    back: Back
     show: Show
+    archives: Archive
+    go_to_archives: See archives
     back_to_list: back to list
+    list_user: User
     list_tag: Tags
+    download_pdf: Download PDF
 datatables:
   sLengthMenu: Show de _MENU_ entries per page
   sSearch: Search
