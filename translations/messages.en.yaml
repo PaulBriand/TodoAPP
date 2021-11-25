@@ -1,4 +1,5 @@
 general:
+  login: You are logged in as
   name: Name
   description: Description
   due_date: Due Date
@@ -8,6 +9,7 @@ general:
   category: Tag
   title_list_task: List of tasks
   title_list_task_archive: List of archived tasks
+  lblArchive: Archive type
   status:
     title: Status
     1: To do
@@ -24,13 +26,14 @@ general:
     archives: Archive
     go_to_archives: See archives
     back_to_list: back to list
-    list_user: User
-    list_tag: Tags
+    list_user: Users List
+    list_tag: Tags List
     download_pdf: Download PDF
 datatables:
   sLengthMenu: Show de _MENU_ entries per page
   sSearch: Search
   sInfo: Showing _START_ to _END_ of _TOTAL_ records
+  sInfoEmpty: Showing 0 to 0 of 0 records
   previous: Previous
   next: Next
   first: First

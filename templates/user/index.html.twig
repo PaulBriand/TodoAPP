@@ -11,10 +11,9 @@
 {% endblock %}
 
 {% block body %}
-	<div
-		class="container">
+	<div class="container">
 
-		{# <a href="{{ path('user_create') }}" class="btn btn-primary">Ajouter</a> #}
+		<a href="{{ path('user_create') }}" class="btn btn-primary">Ajouter</a>
 
 		<table class="table-striped table-bordered" id="usersTable">
 			<thead>
@@ -43,6 +42,8 @@
 				{% endif %}
 			</tbody>
 		</table>
+
+		<a href="{{path('task_listing')}}" class="btn btn-secondary mx-auto">{{'general.button.back_to_list'|trans}}</a>
 	</div>
 
 

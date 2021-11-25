@@ -121,12 +121,8 @@ class TaskController extends AbstractController
         $this->manager->flush();
 
         $this->addFlash(
-            'Delete',
-            'L\'action a bien effacée'
-        );
-        $this->addFlash(
             'success',
-            'L\'action a bien été effectuée'
+            'L\'action a bien effacée'
         );
 
         return $this->redirectToRoute('task_listing');

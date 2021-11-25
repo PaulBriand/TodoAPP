@@ -1,4 +1,5 @@
 {{ form_start(form) }}
 {{ form_widget(form) }}
 <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+<a href="{{path('task_listing')}}" class="btn btn-secondary mx-auto">{{'general.button.back_to_list'|trans}}</a>
 {{ form_end(form) }}
