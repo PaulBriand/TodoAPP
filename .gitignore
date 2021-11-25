@@ -8,3 +8,4 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+migrations/Version20211125163410.php
