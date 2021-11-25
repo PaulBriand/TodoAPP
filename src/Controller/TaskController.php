@@ -40,11 +40,13 @@ class TaskController extends AbstractController
      */
     public function index(): Response
     {
+        // On récupère les tâches
         $user = $this->getUser();
-        $role = $user->getRoles();
-        $admin = "ROLE_ADMIN";
         $id = $user->getId();
         $slug = $user->getIsPrefered();
+        $tasks = $this->repository->findAll();
+        $role = $user->getRoles();
+        $admin = 'ROLE_ADMIN';
 
         if (in_array($admin, $role)) {
             $tasks = $this->repository->findBy(['isArchived' => '0']);
@@ -89,7 +91,6 @@ class TaskController extends AbstractController
         if (!$task) {
             $task = new Task;
             $task->setCreatedAt(new \DateTime());
-
             $user = $this->getUser();
             $task->setUser($user);
         }

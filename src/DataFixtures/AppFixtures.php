@@ -43,8 +43,11 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
+<<<<<<< HEAD
         $manager->flush();
 
+=======
+>>>>>>> feature_Lien_user
         for ($c = 0; $c < 5; $c++) {
 
             $tag = new Tag();
@@ -72,6 +75,7 @@ class AppFixtures extends Fixture
         $listUsers = $manager->getRepository(User::class)->findAll();
 
 
+        $listeUsers = $manager->getRepository(User::class)->findAll();
         for ($t = 0; $t < mt_rand(15, 30); $t++) {
 
             $task = new Task();
