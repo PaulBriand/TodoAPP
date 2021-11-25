@@ -6,9 +6,6 @@ general:
   requestpage: The requested page couldn't be located. Checkout for any URL misspelling or
   error403Titre: Access Denied
   category: Tag
-  backhomepage: Back to the Home Page
-  requestpage: The requested page couldn't be located. Checkout for any URL misspelling or
-  error403Titre: Access Denied
   title_list_task: List of tasks
   title_list_task_archive: List of archived tasks
   status:
