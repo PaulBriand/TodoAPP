@@ -2,3 +2,15 @@
 .table-striped > tbody > tr:nth-of-type(odd) > * {
   color: blue !important;
 }
+
+.done {
+  background-color: lightgreen !important;
+}
+
+.todo {
+  background-color: rgb(233, 144, 144) !important;
+}
+
+.wip {
+  background-color: rgb(243, 200, 120) !important;
+}

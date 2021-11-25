@@ -24,6 +24,7 @@
 					<th>{% trans from 'messages'%}general.description{%endtrans%}</th>
 					<th>{% trans from 'messages'%}general.due_date{%endtrans%}</th>
 					<th>{% trans from 'messages'%}general.category{%endtrans%}</th>
+					<th>{{'general.status.title' | trans}}</th>
 					<th>Update</th>
 					<th>Delete</th>
 				</tr>
@@ -44,41 +45,54 @@
 							<td>{{ task.description }}</td>
 							<td>{{ task.dueAt | date('d/m/y H:i:s') }}</td>
 							<td>{{ task.tag.name }}</td>
-							<td>
-								<a href="{{ path('task_update',{"id": task.id}) }}" class="btn btn-success">{{'general.button.update' | trans}}</a>
-							</td>
-							<td>
-								<a href="{{ path('task_delete',{"id": task.id}) }}" class="btn btn-danger">{{'general.button.delete' | trans}}</a>
-							</td>
-						</tr>
-					{% endfor %}
-				{% endif %}
+							{% if task.status.label == 1 %}
+								<td class="todo">
+								{% else %}
+									{% if task.status.label == 2 %}
+										<td class="wip">
+										{% else %}
+											{% if task.status.label == 3 %}
+												<td class="done">
+												{% endif %}
+											{% endif %}
+										{% endif %}
+										{{('general.status.' ~ task.status.label) | trans}}</td>
+									<td>
+										<a href="{{ path('task_update',{"id": task.id}) }}" class="btn btn-success">{{'general.button.update' | trans}}</a>
+									</td>
+									<td>
+										<a href="{{ path('task_delete',{"id": task.id}) }}" class="btn btn-danger">{{'general.button.delete' | trans}}</a>
+									</td>
+								</tr>
+							{% endfor %}
+						{% endif %}
+					</tbody>
+				</table>
 			</tbody>
-		</table>
-	</div>
-{% endblock %}
+		</div>
+	{% endblock %}
 
-{% block javascripts %}
+	{% block javascripts %}
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-	<script>
-		$(document).ready(function () {
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+		<script>
+			$(document).ready(function () {
 $('#tasksTable').DataTable({
 language: {
-"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu                    {% endtrans %}",
-"sSearch": "{% trans from 'messages' %}datatables.sSearch                    {% endtrans %}",
-"sInfo": "{% trans from 'messages' %}datatables.sInfo                    {% endtrans %}",
+"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu                         {% endtrans %}",
+"sSearch": "{% trans from 'messages' %}datatables.sSearch                         {% endtrans %}",
+"sInfo": "{% trans from 'messages' %}datatables.sInfo                         {% endtrans %}",
 "sInfoEmpty": "Showing 0 to 0 of 0 records",
 "sInfoFiltered": "(filtered from _MAX_ total records)",
 "paginate": {
-"first": "{% trans from 'messages' %}datatables.first                    {% endtrans %}",
-"previous": "{% trans from 'messages' %}datatables.previous                    {% endtrans %}",
-"next": "{% trans from 'messages' %}datatables.next                    {% endtrans %}",
-"last": "{% trans from 'messages' %}datatables.last                    {% endtrans %}"
+"first": "{% trans from 'messages' %}datatables.first                         {% endtrans %}",
+"previous": "{% trans from 'messages' %}datatables.previous                         {% endtrans %}",
+"next": "{% trans from 'messages' %}datatables.next                         {% endtrans %}",
+"last": "{% trans from 'messages' %}datatables.last                         {% endtrans %}"
 }
 }
 });
 });
-	</script>
-{% endblock %}
+		</script>
+	{% endblock %}

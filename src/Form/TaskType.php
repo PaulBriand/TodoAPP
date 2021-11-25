@@ -10,6 +10,7 @@ use Dompdf\Options;
 use App\Entity\Task;
 use PhpParser\Node\Stmt\Label;
 use Doctrine\ORM\EntityRepository;
+use App\Repository\StatusRepository;
 use Symfony\Component\Form\AbstractType;
 use Egulias\EmailValidator\Parser\DomainPart;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,9 +33,17 @@ class TaskType extends AbstractType
      */
     private $translator;
 
-    public function __construct(TranslatorInterface $translator)
+    /**
+     * Undocumented variable
+     * 
+     * @var StatusRepository
+     */
+    private $repository;
+
+    public function __construct(TranslatorInterface $translator, StatusRepository $repository)
     {
         $this->translator = $translator;
+        $this->repository = $repository;
     }
 
 
@@ -67,6 +76,18 @@ class TaskType extends AbstractType
                 'label' => $this->translator->trans('general.category'),
                 'choice_label' => 'name'
             ])
+
+            ->add('status', ChoiceType::class, [
+                'choices' => [
+                    $this->translator->trans("general.status.1") => $this->repository->findAll()[0],
+                    $this->translator->trans("general.status.2") => $this->repository->findAll()[1],
+                    $this->translator->trans("general.status.3") => $this->repository->findAll()[2]
+                ],
+                'label' => $this->translator->trans("general.status.title"),
+                'expanded' => false,
+                'multiple' => false
+            ])
+
 
             ->add('save', SubmitType::class, [
                 'label' => $this->translator->trans('general.button.success'),

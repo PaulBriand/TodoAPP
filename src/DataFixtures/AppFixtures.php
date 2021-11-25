@@ -6,6 +6,7 @@ use Faker\Factory;
 use App\Entity\Tag;
 use App\Entity\Task;
 use App\Entity\User;
+use App\Entity\Status;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -57,7 +58,20 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
+
+        for ($s = 1; $s <= 3; $s++) {
+            // Statut
+            $statut = new Status;
+            // Label identifiable facilement
+            $statut->setLabel($s);
+            // faire persister l’objet
+            $manager->persist($statut);
+        }
+
+        $manager->flush();
+
         $allTags = $manager->getRepository(Tag::class)->findAll();
+        $status = $manager->getRepository(Status::class)->findAll();
         $listUsers = $manager->getRepository(User::class)->findAll();
 
 
@@ -71,6 +85,7 @@ class AppFixtures extends Fixture
             $task->setDueAt($faker->dateTimeBetween('now', '15 days'));
             $task->setTag($faker->randomElement($allTags));
             $task->setUser($faker->randomElement($listUsers));
+            $task->setStatus($faker->randomElement($status));
 
             $manager->persist($task);
         }
