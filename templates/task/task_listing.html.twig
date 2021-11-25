@@ -1,0 +1,41 @@
+<table class="table table-striped tabled-bordered" id="tasksTable">
+	<thead>
+		<tr>
+			<th>{{'general.name'|trans}}</th>
+			<th>{{'general.description'|trans}}</th>
+			<th>{{'general.due_date'|trans}}</th>
+			<th>{{'general.category'|trans}}</th>
+			<th>{{'general.status.title'|trans}}</th>
+			<th>Update</th>
+			<th>Delete</th>
+			{% if slug == 'manual' %}
+				<th>Archive</th>
+			{% endif %}
+		</tr>
+	</thead>
+	<tbody>
+		{% if tasks is defined %}
+			{% for task in tasks %}
+				<tr>
+					<td>{{ task.name }}</td>
+					<td>{{ task.description }}</td>
+					<td>{{ task.dueAt | date('d/m/Y') }}</td>
+					<td>{{ task.tag.name }}</td>
+					<td class="statut-{{task.status.label}}">
+						{{('general.status.' ~ task.status.label) | trans}}</td>
+					<td>
+						<a href="{{ path('task_update',{"id": task.id}) }}" class="btn btn-success">{{'general.button.update' | trans}}</a>
+					</td>
+					<td>
+						<a href="{{ path('task_delete',{"id": task.id}) }}" class="btn btn-danger">{{'general.button.delete' | trans}}</a>
+					</td>
+					{% if slug == 'manual' %}
+						<td>
+							<a href="{{ path('task_archive',{"id": task.id}) }}" class="btn btn-warning">{{'general.button.archives' | trans}}</a>
+						</td>
+					{% endif %}
+				</tr>
+			{% endfor %}
+		{% endif %}
+	</tbody>
+</table>

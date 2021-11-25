@@ -82,6 +82,7 @@ class AppFixtures extends Fixture
             $task->setTag($faker->randomElement($allTags));
             $task->setUser($faker->randomElement($listUsers));
             $task->setStatus($faker->randomElement($status));
+            $task->setIsArchived(0);
 
             $manager->persist($task);
         }

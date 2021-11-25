@@ -3,14 +3,14 @@
   color: blue !important;
 }
 
-.done {
+.statut-1 {
   background-color: lightgreen !important;
 }
 
-.todo {
+.statut-2 {
   background-color: rgb(233, 144, 144) !important;
 }
 
-.wip {
+.statut-3 {
   background-color: rgb(243, 200, 120) !important;
 }
