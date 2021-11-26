@@ -44,7 +44,6 @@ class TaskController extends AbstractController
         $user = $this->getUser();
         $id = $user->getId();
         $slug = $user->getIsPrefered();
-        $tasks = $this->repository->findAll();
         $role = $user->getRoles();
         $admin = 'ROLE_ADMIN';
 
@@ -133,7 +132,16 @@ class TaskController extends AbstractController
      */
     public function dowloadPdf()
     {
-        $tasks = $this->repository->findAll();
+        $user = $this->getUser();
+        $id = $user->getId();
+        $role = $user->getRoles();
+        $admin = 'ROLE_ADMIN';
+
+        if (in_array($admin, $role)) {
+            $tasks = $this->repository->findBy(['isArchived' => '0']);
+        } else {
+            $tasks = $this->repository->findBy(['user' => $id, 'isArchived' => '0']);
+        }
         // Gestion des options
         $pdfoption = new Options;
         $pdfoption->set('default', "Arial");
