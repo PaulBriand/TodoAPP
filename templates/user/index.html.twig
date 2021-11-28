@@ -17,7 +17,6 @@
 
 		<table class="table-striped table-bordered" id="usersTable">
 			<thead>
-				<th>Id</th>
 				<th>Email</th>
 				<th>Rôle</th>
 				<th></th>
@@ -27,7 +26,6 @@
 				{% if users is defined %}
 					{% for user in users %}
 						<tr>
-							<th scope='row'>{{ user.id }}</th>
 							<td>{{ user.email }}</td>
 							<td>{{ user.roles |join(', ') }}</td>
 							<td>
