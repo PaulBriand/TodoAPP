@@ -10,6 +10,12 @@ general:
   title_list_task: List of tasks
   title_list_task_archive: List of archived tasks
   lblArchive: Archive type
+  auto: Auto
+  manual: Manual
+  title:
+    pageConnect: Log in !
+    tasklist: List of Tasks
+    taskmail: The summary of your task
   status:
     title: Status
     1: To do
@@ -20,6 +26,7 @@ general:
     cancel: Cancel
     update: Update
     delete: Delete
+    logout: Logout
     add: Create
     back: Back
     show: Show
@@ -29,6 +36,12 @@ general:
     list_user: Users List
     list_tag: Tags List
     download_pdf: Download PDF
+  login:
+    title: Please sign in
+    mail: Email
+    password: Password
+    button: Sign In
+    forgot_password: Forgot Password ?
 datatables:
   sLengthMenu: Show de _MENU_ entries per page
   sSearch: Search

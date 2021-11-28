@@ -3,21 +3,19 @@
 	<table border="1" id="tasksTable">
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th>Nom</th>
-				<th>Description</th>
-				<th>Date effective</th>
-				<th>Catégorie</th>
+				<th>{{'general.name'|trans}}</th>
+				<th>{{'general.description'|trans}}</th>
+				<th>{{'general.due_at'|trans}}</th>
+				<th>{{'general.category'|trans}}</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% if tasks is defined %}
 				{% for task in tasks %}
 					<tr>
-						<td>{{ task.id }}</td>
 						<td>{{ task.name }}</td>
 						<td>{{ task.description }}</td>
-						<td>{{ task.dueAt | date('d/m/Y H:i')}}</td>
+						<td>{{ task.dueAt | date('d/m/Y')}}</td>
 						<td>{{ task.tag.name }}</td>
 					</tr>
 				{% endfor %}
