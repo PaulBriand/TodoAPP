@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{'general.title.listTask'|trans}}
+	{{'general.title.tasklist'|trans}}
 {% endblock %}
 
 {% block stylesheets %}
@@ -66,16 +66,16 @@ $('#tasksTable').DataTable({
 ],
 
 language: {
-"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu                    {% endtrans %}",
-"sSearch": "{% trans from 'messages' %}datatables.sSearch                    {% endtrans %}",
-"sInfo": "{% trans from 'messages' %}datatables.sInfo                    {% endtrans %}",
-"sInfoEmpty": "{% trans from 'messages' %}datatables.sInfoEmpty                    {% endtrans %}",
+"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu                     {% endtrans %}",
+"sSearch": "{% trans from 'messages' %}datatables.sSearch                     {% endtrans %}",
+"sInfo": "{% trans from 'messages' %}datatables.sInfo                     {% endtrans %}",
+"sInfoEmpty": "{% trans from 'messages' %}datatables.sInfoEmpty                     {% endtrans %}",
 "sInfoFiltered": "(filtered from _MAX_ total records)",
 "paginate": {
-"first": "{% trans from 'messages' %}datatables.first                    {% endtrans %}",
-"previous": "{% trans from 'messages' %}datatables.previous                    {% endtrans %}",
-"next": "{% trans from 'messages' %}datatables.next                    {% endtrans %}",
-"last": "{% trans from 'messages' %}datatables.last                    {% endtrans %}"
+"first": "{% trans from 'messages' %}datatables.first                     {% endtrans %}",
+"previous": "{% trans from 'messages' %}datatables.previous                     {% endtrans %}",
+"next": "{% trans from 'messages' %}datatables.next                     {% endtrans %}",
+"last": "{% trans from 'messages' %}datatables.last                     {% endtrans %}"
 }
 }
 });

@@ -36,7 +36,7 @@ general:
     list_user: Liste des utilisateurs
     list_tag: Liste des catégories
     download_pdf: Télécharger le PDF
-  login:
+  connect:
     title: Se connecter
     mail: Adresse Mail
     password: Mot de Passe
