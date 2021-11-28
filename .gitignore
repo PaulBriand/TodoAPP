@@ -10,3 +10,4 @@
 /migrations/
 ###< symfony/framework-bundle ###
 migrations/Version20211125163410.php
+templates/PDF/pdfdownload.html.twig
