@@ -116,15 +116,27 @@ class TaskController extends AbstractController
      */
     public function deleteTask(Task $task)
     {
-        $this->manager->remove($task);
-        $this->manager->flush();
+        if ($task->getIsArchived()) {
+            $this->manager->remove($task);
+            $this->manager->flush();
 
-        $this->addFlash(
-            'success',
-            'L\'action a bien effacée'
-        );
+            $this->addFlash(
+                'success',
+                'L\'action a bien effacée'
+            );
 
-        return $this->redirectToRoute('task_listing');
+            return $this->redirectToRoute('task_archives');
+        } else {
+            $this->manager->remove($task);
+            $this->manager->flush();
+
+            $this->addFlash(
+                'success',
+                'L\'action a bien effacée'
+            );
+
+            return $this->redirectToRoute('task_listing');
+        }
     }
     /**
      * 
