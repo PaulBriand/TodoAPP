@@ -1,4 +1,6 @@
 #tasksTable,
+#usersTable,
+#tagsTable,
 .table-striped > tbody > tr:nth-of-type(odd) > * {
   color: blue !important;
 }

@@ -30,7 +30,8 @@
 
 		<div class="text-center mt-2 col-4">
 			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-				<p>Vous etes connecté en tant que :
+				<p>{{'general.login'|trans}}
+					:
 					{{ app.user.email }}
 				</p>
 			{% endif %}
@@ -38,7 +39,7 @@
 
 		<div class="text-end mt-2 col-4">
 			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-				<a class="btn btn-danger" href="{{ path("app_logout") }}">Logout</a>
+				<a class="btn btn-danger" href="{{ path("app_logout") }}">{{'general.button.logout'|trans}}</a>
 			{% endif %}
 		</div>
 

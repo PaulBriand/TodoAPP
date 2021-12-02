@@ -4,6 +4,14 @@
 	{{'tags.lTabTitle'|trans}}
 {% endblock %}
 
+{% block stylesheets %}
+
+	<link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
+
+{% endblock %}
+
+
 {% block body %}
 	<h1>{{'tags.ltTitle'|trans}}</h1>
 
@@ -15,19 +23,16 @@
 		{% endfor %}
 
 	{% endfor %}
-	<table class="table table-striped table-bordered">
+	<table class="table table-striped table-bordered mt-4" name="tagsTable">
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th>{{ 'general.name'|trans}}
-				</th>
-				<th>actions</th>
+				<th>{{'general.name'|trans}}</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for tag in tags %}
 				<tr>
-					<td>{{ tag.id }}</td>
 					<td>{{ tag.name }}</td>
 					<td>
 						<a href="{{path('tag_update',{'id': tag.id})}}" class="btn btn-warning mx-auto">{{'general.button.update'|trans}}</a>
@@ -41,7 +46,34 @@
 			{% endfor %}
 		</tbody>
 	</table>
+	<div class="mt-2">
+		<a href="{{path('tag_create')}}" class="btn btn-primary">{{'general.button.add'|trans}}</a>
+		<br><br>
+		<a href="{{path('task_listing')}}" class="btn btn-secondary">{{'general.button.back_to_list'|trans}}</a>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script>
+	<script>
+		$(document).ready(function () {
+$('#tagsTable').DataTable({
 
-	<a href="{{path('tag_create')}}" class="btn btn-primary mx-auto">{{'general.button.add'|trans}}</a>
-</br>
-<a href="{{path('task_listing')}}" class="btn btn-secondare mx-auto">{{'general.button.back_to_list'|trans}}</a>{% endblock %}
+language: {
+"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu                         {% endtrans %}",
+"sSearch": "{% trans from 'messages' %}datatables.sSearch                         {% endtrans %}",
+"sInfo": "{% trans from 'messages' %}datatables.sInfo                         {% endtrans %}",
+"sInfoEmpty": "{% trans from 'messages' %}datatables.sInfoEmpty                         {% endtrans %}",
+"sInfoFiltered": "(filtered from _MAX_ total records)",
+"paginate": {
+"first": "{% trans from 'messages' %}datatables.first                         {% endtrans %}",
+"previous": "{% trans from 'messages' %}datatables.previous                         {% endtrans %}",
+"next": "{% trans from 'messages' %}datatables.next                         {% endtrans %}",
+"last": "{% trans from 'messages' %}datatables.last                         {% endtrans %}"
+}
+}
+});
+});
+	</script>
+{% endblock %}

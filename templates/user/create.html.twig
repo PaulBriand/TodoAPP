@@ -2,7 +2,7 @@
 
 {% block title %}
 
-	Créer une tâche
+	{{'general.title.addUser'|trans}}
 
 {% endblock %}
 
@@ -10,7 +10,7 @@
 
 	<br><br>
 	<div class="d-flex justify-content-center">
-		<h1>GESTION UTILISATEUR</h1>
+		<h1>{{'general.title.addUser'|trans}}</h1>
 	</div>
 	<br><br>
 	<div class="container">
@@ -18,8 +18,8 @@
 		{{ form_widget(form) }}
 		{{ form_end(form) }}
 		<div>
-			<a href="/fr/user/listing" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Retour</a>
-			<a href="/fr/task/listing" class="btn btn-warning btn-lg active" role="button" aria-pressed="true">Accueil</a>
+			<a href="/fr/user/listing" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{'general.button.back'|trans}}</a>
+			<a href="/fr/task/listing" class="btn btn-warning btn-lg active" role="button" aria-pressed="true">{{'general.button.accueil'|trans}}</a>
 		</div>
 
 	</div>
