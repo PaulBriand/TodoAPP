@@ -12,10 +12,15 @@ general:
   lblArchive: Type d'archivage
   auto: Auto
   manual: Manuel
+  user:
+    mail: Adresse Mail
+    role: Rôle
   title:
     pageConnect: Se connecter
     tasklist: Liste des Tâches
     taskmail: Le résumé de votre tâche
+    userList: Listes des utilisateurs
+    addUser: Ajouter un utilisateur
   status:
     title: Statut
     1: À faire
@@ -30,8 +35,9 @@ general:
     add: Ajouter
     show: Info
     back: Retour
+    accueil: Accueil
     archives: Archiver
-    back_to_list: Retour à la liste
+    back_to_list: Retour à la liste des tâches
     go_to_archives: Voir les archives
     list_user: Liste des utilisateurs
     list_tag: Liste des catégories

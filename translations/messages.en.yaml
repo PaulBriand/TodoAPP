@@ -12,10 +12,15 @@ general:
   lblArchive: Archive type
   auto: Auto
   manual: Manual
+  user:
+    mail: Mail Adress
+    role: Role
   title:
     pageConnect: Log in !
     tasklist: List of Tasks
     taskmail: The summary of your task
+    userList: List of Users
+    addUser: Add a new User
   status:
     title: Status
     1: To do
@@ -29,10 +34,11 @@ general:
     logout: Logout
     add: Create
     back: Back
+    accueil: Home
     show: Show
     archives: Archive
     go_to_archives: See archives
-    back_to_list: back to list
+    back_to_list: Back to Tasklist
     list_user: Users List
     list_tag: Tags List
     download_pdf: Download PDF
