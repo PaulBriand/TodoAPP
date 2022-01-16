@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Form\UserUpdateType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -102,8 +103,15 @@ class UserController extends AbstractController
     public function deleteUser(User $user): Response
     {
 
-        $this->manager->remove($user);
-        $this->manager->flush();
+        try {
+            $this->manager->remove($user);
+            $this->manager->flush();
+        } catch (Exception $e) {
+            $this->addFlash(
+                'danger',
+                'Votre utilisateur a encore des taches associés !'
+            );
+        }
 
         return $this->redirectToRoute('user_listing');
     }

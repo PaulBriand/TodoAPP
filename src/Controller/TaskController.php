@@ -44,7 +44,6 @@ class TaskController extends AbstractController
         $user = $this->getUser();
         $id = $user->getId();
         $slug = $user->getIsPrefered();
-        $tasks = $this->repository->findAll();
         $role = $user->getRoles();
         $admin = 'ROLE_ADMIN';
 
@@ -117,19 +116,27 @@ class TaskController extends AbstractController
      */
     public function deleteTask(Task $task)
     {
-        $this->manager->remove($task);
-        $this->manager->flush();
+        if ($task->getIsArchived()) {
+            $this->manager->remove($task);
+            $this->manager->flush();
 
-        $this->addFlash(
-            'Delete',
-            'L\'action a bien effacée'
-        );
-        $this->addFlash(
-            'success',
-            'L\'action a bien été effectuée'
-        );
+            $this->addFlash(
+                'success',
+                'L\'action a bien effacée'
+            );
 
-        return $this->redirectToRoute('task_listing');
+            return $this->redirectToRoute('task_archives');
+        } else {
+            $this->manager->remove($task);
+            $this->manager->flush();
+
+            $this->addFlash(
+                'success',
+                'L\'action a bien effacée'
+            );
+
+            return $this->redirectToRoute('task_listing');
+        }
     }
     /**
      * 
@@ -137,7 +144,16 @@ class TaskController extends AbstractController
      */
     public function dowloadPdf()
     {
-        $tasks = $this->repository->findAll();
+        $user = $this->getUser();
+        $id = $user->getId();
+        $role = $user->getRoles();
+        $admin = 'ROLE_ADMIN';
+
+        if (in_array($admin, $role)) {
+            $tasks = $this->repository->findBy(['isArchived' => '0']);
+        } else {
+            $tasks = $this->repository->findBy(['user' => $id, 'isArchived' => '0']);
+        }
         // Gestion des options
         $pdfoption = new Options;
         $pdfoption->set('default', "Arial");

@@ -49,15 +49,12 @@ class TaskType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $bartender = new Bartender();
-        $filteredBeerListNameName = $bartender->filterBeerList();
-
         $builder
 
-            ->add('name', ChoiceType::class, [
-                'choices' => $filteredBeerListNameName,
+            ->add('name', TextType::class, [
                 'label' => $this->translator->trans('general.name')
             ])
+
             ->add('description', TextareaType::class, [
                 'label' => $this->translator->trans('general.description')
             ])

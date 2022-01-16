@@ -38,7 +38,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'Email de la grosse tâche'
+                'label' => 'Email de l\'utilisateur'
             ])
             ->add('roles', CollectionType::class, [
                 'entry_type' =>  ChoiceType::class,
@@ -55,7 +55,7 @@ class UserType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'error_bubbling' => true,
-                'invalid_message' => '/!\ FO SESIR 2 FOI LE MEM',
+                'invalid_message' => '/!\ Mot de passe différent !',
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
 
